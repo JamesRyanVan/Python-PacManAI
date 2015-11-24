@@ -16,7 +16,7 @@ The Pac-Man projects are written in Python 2.7 and do not depend on any packages
 
 Search implements depth-first, breadth-first, uniform cost, and A* search algorithms. These algorithms are used to solve navigation and traveling salesman problems in the Pacman world. These search alogorithms use functions from a node class, which helps store and track data.
 
-To read the full search project details and problems, download search.html from the instructions folder. 
+To read the full search project details and problems, [click here](http://jamesryanvan.github.io/Python-PacManAI/instructions/search.html). 
 
 ##### To test search.py, you can use the following commands (easy to hard mazes):
 
