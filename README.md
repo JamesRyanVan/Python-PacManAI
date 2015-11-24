@@ -2,11 +2,17 @@
 
 Python pacman is a traditional pacman game, auto completed by search and agent algorithms. Each of the following sub heading is a seperate 'project'. 
 
+##### Techical Details
+
+The Pac-Man projects are written in Python 2.7 and do not depend on any packages external to a standard Python distribution.
+
 ## Search
 
 Search implements depth-first, breadth-first, uniform cost, and A* search algorithms. These algorithms are used to solve navigation and traveling salesman problems in the Pacman world. These search alogorithms use functions from a node class, which helps store and track data.
 
-To test search.py, you can use the following commands (easy to hard mazes):
+To read the full search project details and problems, download search.html from the instructions folder. 
+
+##### To test search.py, you can use the following commands (easy to hard mazes):
 
 - python pacman.py
 - python pacman.py --layout testMaze --pacman GoWestAgent
@@ -52,10 +58,6 @@ Currently being worked on.
 ## Contest: Pacman Capture the Flag
 
 - Incompelete
-
-## Technical Notes
-
-The Pac-Man projects are written in Python 2.7 and do not depend on any packages external to a standard Python distribution.
 
 #Credits
 
