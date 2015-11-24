@@ -68,31 +68,67 @@ def tinyMazeSearch(problem):
   return  [s,s,w,s,w,w,s,w]
 
 def depthFirstSearch(problem):
-  """
-  Search the deepest nodes in the search tree first [p 85].
-  
-  Your search algorithm needs to return a list of actions that reaches
-  the goal.  Make sure to implement a graph search algorithm [Fig. 3.7].
-  
-  To get started, you might want to try some of these simple commands to
-  understand the search problem that is being passed in:
-  
-  print "Start:", problem.getStartState()
-  print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-  print "Start's successors:", problem.getSuccessors(problem.getStartState())
-  """
-  "*** YOUR CODE HERE ***"
-  util.raiseNotDefined()
+  from Node import Node
+
+  stack = util.Stack()
+  fringe = Node(problem.getStartState(), [], [])
+
+  stack.push(fringe)
+
+  while not stack.isEmpty():
+  	fringe = stack.pop()
+
+  	for coord, direction, steps in problem.getSuccessors(fringe.c):
+  		if not coord in fringe.v:
+  			if problem.isGoalState(coord):
+  				return fringe.a + [direction]
+  			newFringe = Node(coord, fringe.a + [direction], fringe.v + [coord])
+  			stack.push(newFringe)
+
+  return []
 
 def breadthFirstSearch(problem):
-  "Search the shallowest nodes in the search tree first. [p 81]"
-  "*** YOUR CODE HERE ***"
-  util.raiseNotDefined()
+  from Node import Node
+
+  queue = util.Queue()
+  fringe = Node(problem.getStartState(), [], [])
+
+  queue.push(fringe)
+
+  while not queue.isEmpty():
+  	fringe = queue.pop()
+
+        for coord, direction, steps in problem.getSuccessors(fringe.c):
+            if not coord in fringe.v:
+                if problem.isGoalState(coord):
+                    return fringe.a + [direction]
+                newFringe = Node(coord, fringe.a + [direction], fringe.v + [coord])
+                queue.push(newFringe)
+  return []
       
 def uniformCostSearch(problem):
-  "Search the node of least total cost first. "
-  "*** YOUR CODE HERE ***"
-  util.raiseNotDefined()
+  from Node import Node
+
+  queue = util.PriorityQueue()
+  fringe = Node(problem.getStartState(), [], [])
+
+  queue.push(fringe, 0)
+
+  while not queue.isEmpty():
+  	fringe = queue.pop()
+
+  	if problem.isGoalState(fringe.c):
+  		return fringe.a
+
+        fringe.v += fringe.c
+
+        for coord, direction, steps in problem.getSuccessors(fringe.c):
+            if not coord in fringe.v:
+                newFringe = Node(coord, fringe.a + [direction], fringe.v + [coord])
+                queue.push(newFringe, problem.getCostOfActions(fringe.a + [direction]))
+
+  return []
+
 
 def nullHeuristic(state, problem=None):
   """
@@ -102,9 +138,28 @@ def nullHeuristic(state, problem=None):
   return 0
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-  "Search the node that has the lowest combined cost and heuristic first."
-  "*** YOUR CODE HERE ***"
-  util.raiseNotDefined()
+  from Node import Node
+
+  queue = util.PriorityQueue()
+  fringe = Node(problem.getStartState(), [], [])
+
+  queue.push(fringe, heuristic(problem.getStartState(), problem))
+
+  while not queue.isEmpty():
+    fringe = queue.pop()
+
+    if problem.isGoalState(fringe.c):
+    	return fringe.a
+
+    fringe.v += fringe.c
+
+    for coord, direction, cost in problem.getSuccessors(fringe.c):
+        if not coord in fringe.v:
+            score = problem.getCostOfActions(fringe.a + [direction]) + heuristic(coord, problem)
+            newFringe = Node(coord, fringe.a + [direction], fringe.v + [coord])
+            queue.push(newFringe, score)
+
+  return []
     
   
 # Abbreviations
